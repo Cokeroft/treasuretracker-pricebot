@@ -133,6 +133,16 @@ async def on_message(message: discord.Message):
     if message.author == client.user:
         return
 
+    if config.ALLOWED_CHANNEL_IDS and message.channel.id not in config.ALLOWED_CHANNEL_IDS:
+        # Bot is restricted to specific channel(s) and this isn't one of them.
+        # Stay silent here -- no reply, since replying in every off-limits
+        # channel would itself be noisy/unwanted behavior.
+        logger.info(
+            "Ignoring message in non-allowed channel %s (id=%s)",
+            message.channel, message.channel.id,
+        )
+        return
+
     # Discord auto-creates a role matching the bot's name. If someone selects
     # that role from autocomplete instead of the bot user itself, Discord
     # sends a role mention (<@&ROLE_ID>), which does NOT show up in

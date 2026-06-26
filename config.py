@@ -30,6 +30,16 @@ DISCORD_BOT_TOKEN = os.getenv("DISCORD_BOT_TOKEN", "")
 # command prefix used when mentioning the bot, e.g. "fetch"
 COMMAND_NAME = os.getenv("COMMAND_NAME", "fetch")
 
+# Comma-separated list of Discord channel IDs the bot is allowed to respond
+# in, e.g. "123456789012345678" or "123456789012345678,987654321098765432".
+# Leave empty/unset to allow the bot to respond in ANY channel it can see.
+# To get a channel ID: enable Developer Mode (User Settings -> Advanced),
+# then right-click the channel -> Copy Channel ID.
+_raw_allowed_channels = os.getenv("ALLOWED_CHANNEL_IDS", "").strip()
+ALLOWED_CHANNEL_IDS: set[int] = {
+    int(cid.strip()) for cid in _raw_allowed_channels.split(",") if cid.strip()
+}
+
 # --- TreasureTracker API ---
 CARD_API_BASE_URL = os.getenv(
     "CARD_API_BASE_URL", "https://treasuretracker-production.up.railway.app"
