@@ -1,0 +1,20 @@
+# Secrets -- never commit real env vars
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# PyCharm
+.idea/
+
+# Playwright
+/test-results/
+/playwright-report/
+
+# OS
+.DS_Store
+Thumbs.db
